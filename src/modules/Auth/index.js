@@ -97,6 +97,26 @@ export default class ImplicitAuth extends Auth {
     }, this._defaultProxyRetry);
   }
 
+  _createImplicitRefreshIframe() {
+    this._implicitRefreshFrame = document.createElement('iframe');
+    this._implicitRefreshFrame.src = this._getImplictRefreshOAuthUri();
+    this._implicitRefreshFrame.style.display = 'none';
+    document.body.appendChild(this._implicitRefreshFrame);
+    this._implictitRefreshCallBack = ({ origin, data }) => {
+      console.log(data);
+    };
+    window.addEventListener('message', this._implictitRefreshCallBack);
+  }
+
+  _clearImplicitRefreshIframe() {
+    if (this._implicitRefreshFrame) {
+      document.body.removeChild(this._implicitRefreshFrame);
+      this._implicitRefreshFrame = null;
+      window.removeEventListener('message', this._implictitRefreshCallBack);
+      this._callbackHandler = null;
+    }
+  }
+
   /**
    * @function
    * @param {String} options.redirectUri
@@ -137,6 +157,20 @@ export default class ImplicitAuth extends Auth {
       display: 'page',
       implicit: this.isImplicit,
     })}&${extendedQuery}`;
+  }
+
+  _getImplictRefreshOAuthUri() {
+    const extendedQuery = qs.stringify({
+      iframeEmbedded: true,
+    });
+    return `${this.getLoginUrl({
+      redirectUri: this.redirectUri,
+      brandId: this._brand.id,
+      state: btoa(Date.now()),
+      display: 'page',
+      prompt: 'none',
+      implicit: this.isImplicit,
+    })}`;
   }
 
   /**
