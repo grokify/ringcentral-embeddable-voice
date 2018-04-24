@@ -14,7 +14,6 @@ import AddressBook from 'ringcentral-integration/modules/AddressBook';
 import AccountContacts from 'ringcentral-integration/modules/AccountContacts';
 import Alert from 'ringcentral-integration/modules/Alert';
 import AudioSettings from 'ringcentral-integration/modules/AudioSettings';
-import Auth from 'ringcentral-integration/modules/Auth';
 import BlockedNumber from 'ringcentral-integration/modules/BlockedNumber';
 import Brand from 'ringcentral-integration/modules/Brand';
 import Call from 'ringcentral-integration/modules/Call';
@@ -38,9 +37,7 @@ import ExtensionPhoneNumber from 'ringcentral-integration/modules/ExtensionPhone
 import ForwardingNumber from 'ringcentral-integration/modules/ForwardingNumber';
 import GlobalStorage from 'ringcentral-integration/modules/GlobalStorage';
 import Locale from 'ringcentral-integration/modules/Locale';
-import Messages from 'ringcentral-integration/modules/Messages';
 import MessageSender from 'ringcentral-integration/modules/MessageSender';
-import MessageStore from 'ringcentral-integration/modules/MessageStore';
 import NumberValidate from 'ringcentral-integration/modules/NumberValidate';
 import RateLimiter from 'ringcentral-integration/modules/RateLimiter';
 import RegionSettings from 'ringcentral-integration/modules/RegionSettings';
@@ -56,10 +53,12 @@ import Feedback from 'ringcentral-integration/modules/Feedback';
 
 import DialerUI from 'ringcentral-widgets/modules/DialerUI';
 import RouterInteraction from 'ringcentral-widgets/modules/RouterInteraction';
-import OAuth from 'ringcentral-widgets/modules/ProxyFrameOAuth';
-
+import OAuth from '../OAuth';
+import Auth from '../Auth';
 import Environment from '../Environment';
 import Adapter from '../Adapter';
+import MessageStore from '../MessageStore';
+import Conversations from '../Conversations';
 
 // user Dependency Injection with decorator to create a phone class
 // https://github.com/ringcentral/ringcentral-js-integration-commons/blob/master/docs/dependency-injection.md
@@ -105,17 +104,16 @@ import Adapter from '../Adapter';
     { provide: 'ConversationMatcher', useClass: ConversationMatcher },
     { provide: 'ContactSearch', useClass: ContactSearch },
     { provide: 'MessageStore', useClass: MessageStore },
+    { provide: 'Conversations', useClass: Conversations },
     { provide: 'Conversation', useClass: Conversation },
     { provide: 'DateTimeFormat', useClass: DateTimeFormat },
     { provide: 'AccountPhoneNumber', useClass: AccountPhoneNumber },
     { provide: 'AddressBook', useClass: AddressBook },
     { provide: 'Contacts', useClass: Contacts },
     { provide: 'ContactDetails', useClass: ContactDetails },
-    { provide: 'Messages', useClass: Messages },
     { provide: 'DialerUI', useClass: DialerUI },
     { provide: 'Adapter', useClass: Adapter },
     { provide: 'RouterInteraction', useClass: RouterInteraction },
-    { provide: 'Auth', useClass: Auth },
     { provide: 'Feedback', useClass: Feedback },
     { provide: 'ActiveCalls', useClass: ActiveCalls },
     { provide: 'Environment', useClass: Environment },
