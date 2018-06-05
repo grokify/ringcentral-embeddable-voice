@@ -30,6 +30,8 @@ import AppView from '../AppView';
 import ConversationsPage from '../ConversationsPage';
 import ConversationPage from '../ConversationPage';
 
+import Office365CalendarConferenceInviteButton from '../../components/Office365CalendarConferenceInviteButton';
+
 export default function App({
   phone,
   hostingUrl,
@@ -205,7 +207,15 @@ export default function App({
               />
               <Route
                 path="/conference"
-                component={ConferencePage}
+                component={
+                  props => (
+                    <ConferencePage
+                      additionalButtons={[
+                        Office365CalendarConferenceInviteButton
+                      ]}
+                    />
+                  )
+                }
               />
               <Route
                 path="/conference/commands"
