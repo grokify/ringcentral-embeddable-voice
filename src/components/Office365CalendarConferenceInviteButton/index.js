@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import Button from 'ringcentral-widgets/components/Button';
 import styles from 'ringcentral-widgets/components/ConferencePanel/styles.scss';
 import PropTypes from 'prop-types';
-import openOffice365CalendarPage from '../../lib/office365Calendar';
+
+function openOffice365CalendarPage(calendarEvent) {
+  // add office365 calendar logics here
+  console.log(calendarEvent);
+  window.open('https://outlook.office365.com/owa/?path=/calendar/view/WorkWeek');
+}
 
 export default class Office365CalendarConferenceInviteButton extends Component {
   constructor(props) {
     super(props);
 
+    // add logics
     this._onInvite = () => {
       const inviteText = this.props.getInviteTxt();
       if (!inviteText) {
@@ -20,6 +26,8 @@ export default class Office365CalendarConferenceInviteButton extends Component {
       });
     };
   }
+
+  // add logics
 
   render() {
     return (
